@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Wasp Game</title>
+  </head>
+  <body>
+    <h1>Wasp Game - Swab that wasp and see them DIE!</h1>
+    <div id="wasps"></div>
+
+    <br /><button onclick="waspSubtraction()">SWAB THEM</button>
+  </body>
+  <script>
+    var gameBoard = document.getElementById("wasps");
+    var nest = [];
+    class Wasp {
+      constructor(type) {
+        this.type = type;
+        switch (type) {
+          case "Queen":
+            this.hitpoints = 80;
+            break;
+          case "Worker":
+            this.hitpoints = 68;
+            break;
+          case "Drone":
+            this.hitpoints = 60;
+            break;
+        }
+      }
+    }
+    nest[0] = new Wasp("Queen");
+    for (var i = 1; i < 6; i++) {
+      nest[i] = new Wasp("Worker");
+    }
+    for (var i = 6; i < 14; i++) {
+      nest[i] = new Wasp("Drone");
+    }
+    console.log(nest);
+    render();
+
+    function render() {
+      gameBoard.innerHTML = "";
+      for (var i = 0; i < nest.length; i++) {
+        gameBoard.innerHTML +=
+          nest[i].type + ": Hitpoints: " + nest[i].hitpoints + "<br/>";
+      }
+    }
+
+    function waspSubtraction() {
+      var random = Math.floor(Math.random() * 14);
+      switch (nest[random].type) {
+        case "Queen":
+          nest[random].hitpoints -= 7;
+          break;
+        case "Worker":
+          nest[random].hitpoints -= 10;
+          break;
+        case "Drone":
+          nest[random].hitpoints -= 12;
+          break;
+      }
+      render();
+    }
+
+    // if (nest[0].hitpoints <= 0) {
+    //   return;
+    // }
+  </script>
+</html>
